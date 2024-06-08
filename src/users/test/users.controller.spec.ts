@@ -47,7 +47,7 @@ describe('UsersController', () => {
             beforeEach(async () => {
                 user = await usersController.createUser(userStubs());
             })
-            test("then it should called with user eamil and user age ", () => {
+            test("then it should called with user emil and user age ", () => {
                 expect(usersService.createUser).toHaveBeenCalledWith(userStubs().email, userStubs().age);
             })
             test("then it should  return user", () => {
