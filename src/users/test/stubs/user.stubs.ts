@@ -5,6 +5,6 @@ export const userStubs = (): User => {
         userId: "1234",
         email: "sddr@gmail.com",
         age: 20,
-        favoriteFoods: ["kir", "kos"]
+        favoriteFoods: ["game", "gym"]
     }
 }
