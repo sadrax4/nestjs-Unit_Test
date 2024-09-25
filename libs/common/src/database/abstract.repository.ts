@@ -7,7 +7,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     constructor(
         protected readonly entityModel: Model<TDocument>,
     ) { };
-    
+
     async create(
         document: Omit<TDocument, "_id">,
     ): Promise<TDocument> {
@@ -16,5 +16,21 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
             ...document
         });
         return ((await entity.save()).toJSON()) as unknown as TDocument
+    }
+
+    async findOne(
+        filterQuery: FilterQuery<TDocument>,
+        projection?: ProjectionType<TDocument>,
+        options?: QueryOptions<TDocument>
+    ) {
+        const document = this.entityModel.findOne(
+            filterQuery,
+            projection,
+            options
+        ).lean(true).exec();
+        if (!document) {
+            throw new NotFoundException("no documents found")
+        }
+        return document
     }
 }
