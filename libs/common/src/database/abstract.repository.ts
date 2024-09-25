@@ -95,5 +95,19 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         }
         return document;
     }
-    
+
+    async updateMany(
+        filterQuery: FilterQuery<TDocument>,
+        updateQueryData: FilterQuery<TDocument>
+    ) {
+        const document = this.entityModel.updateMany(
+            filterQuery,
+            updateQueryData
+        ).exec();
+        if (!document) {
+            throw new NotFoundException("no documents found")
+        }
+        return document;
+    }
+
 }
