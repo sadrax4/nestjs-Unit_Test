@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './db/user.repository';
 import { User } from './db/user.schema';
 import { ObjectId } from 'mongodb';
+import { UpdateUserDto } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -9,7 +10,9 @@ export class UsersService {
         private readonly usersRepository: UsersRepository
     ) { }
 
-    async getUserById(userId: string): Promise<User> {
+    async getUserById(
+        userId: string
+    ): Promise<User> {
         return this.usersRepository.findOne({ userId })
     }
 
@@ -17,13 +20,23 @@ export class UsersService {
         return this.usersRepository.find({});
     }
 
-    async createUser(email: string, age: number): Promise<User> {
+    async createUser(
+        email: string,
+        age: number
+    ): Promise<User> {
         return this.usersRepository.create({
             userId: new ObjectId().toHexString(),
             email,
             age,
             favoriteFoods: []
         })
+    }
+
+    async updateUser(
+        userId: string,
+        userUpdates: UpdateUserDto
+    ): Promise<User> {
+        return this.usersRepository.findOneAndUpdate({ userId }, userUpdates);
     }
 
 }
