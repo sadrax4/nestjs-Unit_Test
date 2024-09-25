@@ -1,5 +1,5 @@
 import { Prop, Schema } from "@nestjs/mongoose";
-import  { Types } from "mongoose";
+import { Types } from "mongoose";
 
 @Schema()
 export abstract class AbstractDocument {
