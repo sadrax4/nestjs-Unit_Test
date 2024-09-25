@@ -4,5 +4,5 @@ import { Types } from "mongoose";
 @Schema()
 export abstract class AbstractDocument {
     @Prop({ type: Types.ObjectId })
-    _id: Types.ObjectId
+    _id: string
 }
