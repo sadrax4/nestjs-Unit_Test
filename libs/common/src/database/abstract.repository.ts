@@ -118,4 +118,11 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         return deleteResult.deletedCount >= 1
     }
 
+    async deleteOne(
+        filterQuery: FilterQuery<TDocument>
+    ): Promise<Boolean> {
+        const deleteResult = await this.entityModel.deleteOne(filterQuery);
+        return deleteResult.deletedCount >= 1;
+    }
+
 }
