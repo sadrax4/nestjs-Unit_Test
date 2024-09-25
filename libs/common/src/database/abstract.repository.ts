@@ -49,4 +49,20 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         }
         return document;
     }
+
+    async find(
+        entityFilterQuery: FilterQuery<TDocument>,
+        projection?: ProjectionType<TDocument>,
+        options?: QueryOptions<TDocument>
+    ) {
+        const documents = this.entityModel.find(
+            entityFilterQuery,
+            projection,
+            options
+        ).lean(true).exec();
+        if (!documents) {
+            throw new NotFoundException("no documents found")
+        }
+        return documents
+    }
 }
