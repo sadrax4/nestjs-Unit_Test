@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { UsersRepository } from './db/user.repository';
+import { User } from './db/user.schema';
 
 @Injectable()
 export class UsersService {
-    constructor(private readonly usersRepository: UsersRepository) {}
+    constructor(
+        private readonly usersRepository: UsersRepository
+    ) { }
 
     async getUserById(userId: string): Promise<User> {
         return this.usersRepository.findOne({ userId })
