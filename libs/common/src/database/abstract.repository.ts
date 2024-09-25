@@ -125,4 +125,11 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         return deleteResult.deletedCount >= 1;
     }
 
+    async populate(
+        docs: Array<any>,
+        options: PopulateOptions | Array<PopulateOptions>
+    ): Promise<Array<TDocument>> {
+        return this.entityModel.populate(docs, options);
+    }
+
 }
