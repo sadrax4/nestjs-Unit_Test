@@ -33,4 +33,20 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         }
         return document
     }
+
+    async findByIdAndUpdate(
+        id: mongoose.ObjectId | string,
+        update?: UpdateQuery<TDocument>,
+        options?: QueryOptions<TDocument>
+    ) {
+        const document = this.entityModel.findByIdAndUpdate(
+            id,
+            update,
+            options
+        ).lean(true).exec();
+        if (!document) {
+            throw new NotFoundException("no documents found")
+        }
+        return document;
+    }
 }
