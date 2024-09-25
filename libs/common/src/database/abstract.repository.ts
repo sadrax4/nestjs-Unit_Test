@@ -131,6 +131,12 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     ): Promise<Array<TDocument>> {
         return this.entityModel.populate(docs, options);
     }
-    
+
+    aggregate<R = any>(
+        pipeline: PipelineStage[],
+        options?: AggregateOptions,
+    ): Aggregate<Array<R>> {
+        return this.entityModel.aggregate(pipeline, options)
+    }
 
 }
