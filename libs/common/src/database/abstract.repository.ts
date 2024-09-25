@@ -131,5 +131,6 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     ): Promise<Array<TDocument>> {
         return this.entityModel.populate(docs, options);
     }
+    
 
 }
