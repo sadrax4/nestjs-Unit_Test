@@ -65,4 +65,20 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
         }
         return documents
     }
+
+    async findById(
+        id: mongoose.ObjectId | string,
+        projection?: Record<string, Document>,
+        options?: QueryOptions<TDocument>
+    ) {
+        const document = await this.entityModel.findById(
+            id,
+            { _id: 0, __v: 0, ...projection },
+            options
+        ).exec();
+        if (!document) {
+            throw new NotFoundException("no documents found")
+        }
+        return document;
+    }
 }
