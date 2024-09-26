@@ -41,4 +41,22 @@ describe('UsersController', () => {
             })
         })
     })
+
+    describe('getUsers', () => {
+        describe('when getUsers is called', () => {
+          let users: User[];
+    
+          beforeEach(async () => {
+            users = await usersController.getUsers();
+          })
+    
+          test('then it should call usersService', () => {
+            expect(usersService.getUsers).toHaveBeenCalled();
+          })
+    
+          test('then it should return users', () => {
+            expect(users).toEqual([userStub()])
+          })
+        })
+      })
 })
