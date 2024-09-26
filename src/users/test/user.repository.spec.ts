@@ -54,4 +54,23 @@ describe('UsersRepository', () => {
         })
       })
 
+      describe('find', () => {
+        describe('when find is called', () => {
+          let users: User[];
+  
+          beforeEach(async () => {
+            jest.spyOn(userModel, 'find');
+            users = await usersRepository.find(userFilterQuery);
+          })
+  
+          test('then it should call the userModel', () => {
+            expect(userModel.find).toHaveBeenCalledWith(userFilterQuery);
+          })
+  
+          test('then it should return a user', () => {
+            expect(users).toEqual([userStub()]);
+          })
+        })
+      })
+
 })
