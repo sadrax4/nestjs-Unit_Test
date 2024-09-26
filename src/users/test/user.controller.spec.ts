@@ -23,4 +23,22 @@ describe('UsersController', () => {
         usersService = moduleRef.get<UsersService>(UsersService);
         jest.clearAllMocks();
     })
+
+    describe('getUser', () => {
+        describe('when getUser is called', () => {
+            let user: User;
+
+            beforeEach(async () => {
+                user = await usersController.getUser(userStub().userId)
+            })
+
+            test('then it should call usersService', () => {
+                expect(usersService.getUserById).toBeCalledWith(userStub().userId);
+            })
+
+            test('then is should return a user', () => {
+                expect(user).toEqual(userStub());
+            })
+        })
+    })
 })
