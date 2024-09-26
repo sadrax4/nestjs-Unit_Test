@@ -59,4 +59,27 @@ describe('UsersController', () => {
           })
         })
       })
+
+      describe('createUser', () => {
+        describe('when createUser is called', () => {
+          let user: User;
+          let createUserDto: CreateUserDto
+    
+          beforeEach(async () => {
+            createUserDto = {
+              email: userStub().email,
+              age: userStub().age
+            }
+            user = await usersController.createUser(createUserDto);
+          })
+    
+          test('then it should call usersService', () => {
+            expect(usersService.createUser).toHaveBeenCalledWith(createUserDto.email, createUserDto.age);
+          })
+    
+          test('then it should return a user', () => {
+            expect(user).toEqual(userStub())
+          })
+        })
+      })
 })
