@@ -37,40 +37,60 @@ describe('UsersRepository', () => {
 
     describe('findOne', () => {
         describe('when findOne is called', () => {
-          let user: User;
-  
-          beforeEach(async () => {
-            jest.spyOn(userModel, 'findOne');
-            user = await usersRepository.findOne(userFilterQuery);
-          })
-  
-          test('then it should call the userModel', () => {
-            expect(userModel.findOne).toHaveBeenCalledWith(userFilterQuery, { _id: 0, __v: 0 });
-          })
-  
-          test('then it should return a user', () => {
-            expect(user).toEqual(userStub());
-          })
-        })
-      })
+            let user: User;
 
-      describe('find', () => {
-        describe('when find is called', () => {
-          let users: User[];
-  
-          beforeEach(async () => {
-            jest.spyOn(userModel, 'find');
-            users = await usersRepository.find(userFilterQuery);
-          })
-  
-          test('then it should call the userModel', () => {
-            expect(userModel.find).toHaveBeenCalledWith(userFilterQuery);
-          })
-  
-          test('then it should return a user', () => {
-            expect(users).toEqual([userStub()]);
-          })
+            beforeEach(async () => {
+                jest.spyOn(userModel, 'findOne');
+                user = await usersRepository.findOne(userFilterQuery);
+            })
+
+            test('then it should call the userModel', () => {
+                expect(userModel.findOne).toHaveBeenCalledWith(userFilterQuery, { _id: 0, __v: 0 });
+            })
+
+            test('then it should return a user', () => {
+                expect(user).toEqual(userStub());
+            })
         })
-      })
+    })
+
+    describe('find', () => {
+        describe('when find is called', () => {
+            let users: User[];
+
+            beforeEach(async () => {
+                jest.spyOn(userModel, 'find');
+                users = await usersRepository.find(userFilterQuery);
+            })
+
+            test('then it should call the userModel', () => {
+                expect(userModel.find).toHaveBeenCalledWith(userFilterQuery);
+            })
+
+            test('then it should return a user', () => {
+                expect(users).toEqual([userStub()]);
+            })
+        })
+    })
+
+    describe('findOneAndUpdate', () => {
+        describe('when findOneAndUpdate is called', () => {
+            let user: User;
+
+            beforeEach(async () => {
+                jest.spyOn(userModel, 'findOneAndUpdate');
+                user = await usersRepository.findOneAndUpdate(userFilterQuery, userStub());
+            })
+
+            test('then it should call the userModel', () => {
+                expect(userModel.findOneAndUpdate).toHaveBeenCalledWith(userFilterQuery, userStub(), { new: true });
+            })
+
+            test('then it should return a user', () => {
+                expect(user).toEqual(userStub());
+            })
+        })
+    })
+})
 
 })
